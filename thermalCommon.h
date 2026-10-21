@@ -31,6 +31,7 @@
 #ifndef THERMAL_THERMAL_COMMON_H__
 #define THERMAL_THERMAL_COMMON_H__
 
+#include <deque>
 #include <thread>
 #include "thermalData.h"
 
@@ -62,7 +63,7 @@ class ThermalCommon {
 		int findLimitProfile(void);
 		std::vector<struct therm_sensor> fetch_sensor_list()
 		{
-			return sens;
+			return std::vector<struct therm_sensor>(sens.begin(), sens.end());
 		};
 		std::vector<struct therm_cdev> fetch_cdev_list()
 		{
@@ -79,7 +80,7 @@ class ThermalCommon {
 		int ncpus;
 		virtualCB cb;
 		std::vector<struct target_therm_cfg> cfg;
-		std::vector<struct therm_sensor> sens;
+		std::deque<struct therm_sensor> sens;
 		std::vector<struct therm_cdev> cdev;
 
 		ThrottlingSeverity left_display_throttle_severity{ThrottlingSeverity::NONE};
