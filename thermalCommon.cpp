@@ -264,6 +264,18 @@ int ThermalCommon::initialize_sensor(struct target_therm_cfg& cfg, int sens_idx)
 	struct therm_sensor sensor;
 	int idx = 0;
 
+	if (cfg.virtual_sensor_flag) {
+		for (struct therm_sensor& s : sens) {
+			if (s.t.type == cfg.type && s.t.name == cfg.label) {
+				LOG(INFO) << "Skipping virtual sensor " <<
+					cfg.sensor_list[sens_idx] << ", " <<
+					cfg.label << " is already provided" <<
+					std::endl;
+				return 0;
+			}
+		}
+	}
+
 	if (!cfg.virtual_sensor_flag) {
 		sensor.tzn = get_tzn(cfg.sensor_list[sens_idx]);
 		if (sensor.tzn < 0) {
