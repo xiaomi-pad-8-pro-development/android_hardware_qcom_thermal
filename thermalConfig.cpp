@@ -1966,6 +1966,29 @@ namespace thermal {
 			},
 			true,
 		},
+		{
+			TemperatureType::SKIN,
+			{ "skin-virt" },
+			"skin",
+			{
+			[LIGHT] = 48000,
+			[MODERATE] = 49000,
+			[SEVERE] = 50000,
+			[CRITICAL] = 60000,
+			[EMERGENCY] = 61000,
+			[SHUTDOWN] = 90000,
+			},
+			true,
+			true,
+			true,
+			{ "quiet_therm", "display_therm", "batt_therm", "cpu_therm" },
+			{ 0.45, 0.25, 0.20, 0.10 },
+			"quiet_therm",
+			0,
+			0,
+			0,
+			2000,
+		},
 	};
 
 	std::vector<std::string> cpu_sensors_parrot =
