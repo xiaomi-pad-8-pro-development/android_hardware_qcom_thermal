@@ -137,7 +137,13 @@ ThermalCommon::ThermalCommon(const virtualCB &inp_cb):
 
 ThermalCommon::~ThermalCommon()
 {
+	/* Only a virtual sensor starts the thread; wake it so it can exit. */
+	if (!virtualThread.joinable())
+		return;
+	pthread_mutex_lock(&waitMutex);
 	exitMode = true;
+	pthread_cond_broadcast(&waitCond);
+	pthread_mutex_unlock(&waitMutex);
 	virtualThread.join();
 }
 
@@ -855,6 +861,11 @@ void ThermalCommon::TripSensorMonitorLoop(struct therm_sensor *vs)
 			clock_gettime(CLOCK_REALTIME, &time_val);
 			time_val.tv_sec += vs->sampling_period_ms / 1000;
 			time_val.tv_nsec += (vs->sampling_period_ms % 1000) * 1000000;
+			/* pthread_cond_timedwait rejects tv_nsec >= 1s with EINVAL. */
+			if (time_val.tv_nsec >= 1000000000L) {
+				time_val.tv_sec++;
+				time_val.tv_nsec -= 1000000000L;
+			}
 			pthread_cond_timedwait(&waitCond, &waitMutex,
 								&time_val);
 		} else {

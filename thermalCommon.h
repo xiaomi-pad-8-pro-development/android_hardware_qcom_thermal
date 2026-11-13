@@ -72,7 +72,7 @@ class ThermalCommon {
 
 		pthread_mutex_t waitMutex;
 		pthread_cond_t waitCond;
-		bool pollingMode, exitMode;
+		bool pollingMode = false, exitMode = false;
 
 	private:
 		void TripSensorMonitorLoop(struct therm_sensor *sensor);
