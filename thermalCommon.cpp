@@ -595,8 +595,8 @@ int ThermalCommon::virtual_sensor_read_temperature(struct therm_sensor& sensor)
 					" for sensor " << sensor.vs_sensor_list[i];
 				return -1;
 			}
-			value = (float)std::stoi(buf, nullptr, 0);
 			try {
+				value = (float)std::stoi(buf, nullptr, 0);
 				LOG(DEBUG) << "VS Temperature read: "<< value <<
 					" for sensor " << sensor.vs_sensor_list[i];
 				value *= sensor.weight_list[i];
@@ -813,8 +813,8 @@ int ThermalCommon::read_trip_temperature(struct therm_sensor& sensor)
 				" for sensor " << sensor.t.name;
 			return -1;
 		}
-		temp = std::stoi(buf, nullptr, 0);
 		try {
+			temp = std::stoi(buf, nullptr, 0);
 			read_ok = true;
 		}
 		catch (std::exception &err) {
