@@ -1954,20 +1954,6 @@ namespace thermal {
 		},
 		{
 			TemperatureType::SKIN,
-			{ "sys-therm-2" },
-			"skin",
-			{
-			[LIGHT] = 48000,
-			[MODERATE] = 49000,
-			[SEVERE] = 50000,
-			[CRITICAL] = 60000,
-			[EMERGENCY] = 61000,
-			[SHUTDOWN] = 90000,
-			},
-			true,
-		},
-		{
-			TemperatureType::SKIN,
 			{ "skin-virt" },
 			"skin",
 			{
@@ -1981,8 +1967,8 @@ namespace thermal {
 			true,
 			true,
 			true,
-			{ "quiet_therm", "display_therm", "batt_therm", "cpu_therm" },
-			{ 0.45, 0.25, 0.20, 0.10 },
+			{ "quiet_therm", "display_therm", "batt_therm" },
+			{ 0.50, 0.28, 0.22 },
 			"quiet_therm",
 			0,
 			0,
